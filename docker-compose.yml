@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  web:
+    image:          example_webi        # image name
+    container_name: example_webc     # container name
+    build: ./web                  # source location
+    ports: 
+      - "5056:5056"
+  web2:
+    image:          example_web2i
+    container_name: example_web2c
+    build: ./web2
+    ports: 
+      - "5057:5057"
+
+  
