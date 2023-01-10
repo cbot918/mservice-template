@@ -14,6 +14,7 @@ services:
       - "5057:5057"
 
   mysql:
+    hostname: ex_mysqlh
     image: mysql
     container_name: ex_mysqlc
     restart: always
