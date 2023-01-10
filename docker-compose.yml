@@ -5,7 +5,7 @@ services:
     container_name: ex_webc    # container name
     build: ./web               # source location
     ports: 
-      - "5056:5056"            # 172.20.0.5
+      - "0.0.0.0:5056:5056"            # 172.20.0.5
   web2:
     image: ex_webi2
     container_name: ex_webc2

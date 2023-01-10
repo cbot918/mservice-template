@@ -1,20 +1,4 @@
 
-DEVPORT = 8181
-
-APITESTENVNAME = pytest
-APITESTNAME = authtest
-APITESTENVWORKDIR = /app/apitest
-
-
-# dev
-DEVPATH = auth.go
-dev: $(DEVPATH)
-	gin --appPort $(DEVPORT) run $(DEVPATH)
-
-run: $(DEVPATH)
-	go build .
-	./auth.exe
-
 # db-instance
 MYSQL_NAME = sql
 MYSQL_PASS = 12345
@@ -42,18 +26,3 @@ db-migratedown:
 	migrate -path db/migration -database "mysql://root:12345@172.17.0.6:8201/practice?sslmode=disable" -verbose down
 	
 
-# apitest
-apitest-image: ./test/apitest/Dockerfile
-	docker build -t $(APITESTENVNAME) ./test/apitest/.
-
-apitest-container: 
-	docker run -it -d --name $(APITESTNAME) $(APITESTENVNAME)
-
-apitest-run: ./test/apitest/testcase
-	docker exec $(APITESTNAME) rm -rf testcase
-	docker exec $(APITESTNAME) mkdir testcase
-	docker cp ./test/apitest/testcase/test_apitest.py $(APITESTNAME):$(APITESTENVWORKDIR)/testcase
-	docker exec $(APITESTNAME) pytest --capture=no
-
-
-# unittest
